@@ -51,17 +51,17 @@ namespace BetterPipeline.Abstractions.Orchestration
                 .Select(x => x.Value)
                 .ToList();
 
-            context?.LogInformation($"sub steps with some result {parallelResults.Count}/{SubSteps.Count}");
+            // context?.LogInformation($"sub steps with some result {parallelResults.Count}/{SubSteps.Count}");
 
             var faultyResults = results.OfType<Problem<TRes>>()
                 .Select((item, index) => (item, index))
                 .ToList();
             if (faultyResults.Count > 0)
             {
-                context?.LogInformation($"sub steps with exception result {faultyResults.Count}/{SubSteps.Count}");
+                // context?.LogInformation($"sub steps with exception result {faultyResults.Count}/{SubSteps.Count}");
                 foreach (var problem in faultyResults)
                 {
-                    context?.LogError(problem.item.Exception, $"Error at step {SubSteps.ElementAt(problem.index)}");
+                    // context?.LogError(problem.item.Exception, $"Error at step {SubSteps.ElementAt(problem.index)}");
                 }
             }
 
@@ -70,10 +70,10 @@ namespace BetterPipeline.Abstractions.Orchestration
                 .ToList();
             if (noneResults.Count > 0)
             {
-                context?.LogInformation($"sub steps with no result {noneResults.Count}/{SubSteps.Count}");
+                // context?.LogInformation($"sub steps with no result {noneResults.Count}/{SubSteps.Count}");
                 foreach (var nonVal in noneResults)
                 {
-                    context?.LogWarning($"none value at step {SubSteps.ElementAt(nonVal.index)}");
+                    // context?.LogWarning($"none value at step {SubSteps.ElementAt(nonVal.index)}");
                 }
             }
 
@@ -92,10 +92,6 @@ namespace BetterPipeline.Abstractions.Orchestration
                      new Problem<TRes>(faultyResults.First().item.Exception) : // if all results have exceptions
                      new None<TRes>(); //then there are some none there
             }
-
-
-
-
 
         }
 

@@ -129,7 +129,7 @@ namespace BetterPipeline.Abstractions
             }
             catch (Exception ex)
             {
-                executionContext?.LogError(ex, $"Error at step {step}");
+                // executionContext?.LogError(ex, $"Error at step {step}");
                 return new Problem<TToType>(new PipelineException($"Error at step {step}", ex));
 
             }
